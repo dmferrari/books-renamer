@@ -1,8 +1,8 @@
-# BookRenamer
+# Books Renamer
 
 ## Introduction
 
-BookRenamer is a Ruby script that automates the renaming of PDF files within a specified directory based on metadata extracted from each file. It uses the title and author information from the PDF metadata to construct new, more descriptive filenames. The script can operate in a dry run mode to display what changes it would make without actually renaming any files.
+Books Renamer is a Ruby script that automates the renaming of PDF files within a specified directory based on metadata extracted from each file. It uses the title and author information from the PDF metadata to construct new, more descriptive filenames. The script can operate in a dry run mode to display what changes it would make without actually renaming any files.
 
 ## Features
 
@@ -13,7 +13,7 @@ BookRenamer is a Ruby script that automates the renaming of PDF files within a s
 
 ## Installation
 
-To run BookRenamer, you'll need Ruby installed on your machine. You will also need to install several dependencies:
+To run Books Renamer, you'll need Ruby installed on your machine. You will also need to install several dependencies:
 
 ```bash
 bundle install
@@ -21,7 +21,7 @@ bundle install
 
 ## Usage
 
-To use BookRenamer, navigate to the directory containing your script and run:
+To use Books Renamer, navigate to the directory containing your script and run:
 
 ```bash
 ruby book_renamer.rb DIRECTORY [--update]
@@ -40,7 +40,7 @@ Using the `--update` flag will permanently replace the file names in the specifi
 
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-To contribute to BookRenamer, follow these steps:
+To contribute to Books Renamer, follow these steps:
 
 1. Fork the project
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
