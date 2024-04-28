@@ -50,7 +50,7 @@ To contribute to BookRenamer, follow these steps:
 
 ## Author
 
-Martin Ferrari <dmferrari@gmail.com>
+Copyright (c) 2024 Martin Ferrari <dmferrari@gmail.com>
 
 ## Disclaimer
 
