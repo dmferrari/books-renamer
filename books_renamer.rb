@@ -33,7 +33,7 @@ class BookRenamer
     file_path_basename = File.basename(file_path)
 
     title, author = fetch_metadata(file_path)
-    if title.nil? || author.nil?
+    if title.nil? || author.nil? || title.empty? || author.empty?
       log("SKIP: #{file_path_basename} - metadata missing")
       return
     end
