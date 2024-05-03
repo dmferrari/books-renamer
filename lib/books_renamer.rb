@@ -7,7 +7,7 @@ require 'time'
 
 I18n.config.available_locales = :en
 
-class BookRenamer
+class BooksRenamer
   FILE_PATTERNS = ['*.pdf'].freeze
 
   def initialize(directory, update: false)
@@ -76,24 +76,4 @@ class BookRenamer
   def sanitize_filename(name)
     I18n.transliterate(name).gsub(/[^0-9A-Za-z.\-]/, ' ').squeeze(' ').strip
   end
-end
-
-def show_help
-  puts <<~HELP
-    Usage: #{File.basename($PROGRAM_NAME)} DIRECTORY [--update]
-    Renames PDF files based on metadata extracted from each file.
-    Options:
-      --update  Execute the file renaming process.
-      --help    Show this help message.
-  HELP
-end
-
-if ARGV.include?('--help')
-  show_help
-elsif ARGV.empty?
-  puts "Usage: #{File.basename($PROGRAM_NAME)} DIRECTORY [--update] [--help]"
-else
-  directory = ARGV[0]
-  update = ARGV.include?('--update')
-  BookRenamer.new(directory, update:).rename_books
 end

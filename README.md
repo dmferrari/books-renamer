@@ -24,7 +24,7 @@ bundle install
 To use Books Renamer, navigate to the directory containing your script and run:
 
 ```bash
-ruby book_renamer.rb DIRECTORY [--update]
+./bin/rename_books DIRECTORY [--update]
 ```
 
 Options:

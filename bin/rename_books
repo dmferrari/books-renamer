@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative '../lib/books_renamer'
+
+class RenameBooks
+  def initialize(args)
+    @args = args
+  end
+
+  def run
+    if @args.include?('--help')
+      show_help
+    elsif @args.empty?
+      puts "Usage: #{File.basename($PROGRAM_NAME)} DIRECTORY [--update] [--help]"
+    else
+      directory = @args[0]
+      update = @args.include?('--update')
+      BooksRenamer.new(directory, update:).rename_books
+    end
+  end
+
+  private
+
+  def show_help
+    puts <<~HELP
+      Usage: #{File.basename($PROGRAM_NAME)} DIRECTORY [--update]
+      Renames PDF files based on metadata extracted from each file.
+      Options:
+        --update  Execute the file renaming process.
+        --help    Show this help message.
+    HELP
+  end
+end
+
+RenameBooks.new(ARGV).run
