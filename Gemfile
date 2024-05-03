@@ -4,5 +4,8 @@ source 'https://rubygems.org'
 
 ruby '3.3.0'
 
-gem 'i18n', '~> 1.14.4'
-gem 'pdf-reader', '~> 2.12.0'
+gem 'byebug', '~> 11.1'
+gem 'i18n', '~> 1.14'
+gem 'pdf-reader', '~> 2.12'
+gem 'rspec', '~> 3.13'
+gem 'rubocop', '~> 1.63'
