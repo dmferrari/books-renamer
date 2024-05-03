@@ -66,7 +66,7 @@ This project uses several key open-source libraries:
 
 - [PDF-Reader](https://github.com/yob/pdf-reader): Essential for extracting PDF metadata.
 - [I18n](https://github.com/ruby-i18n/i18n): Handles filename transliteration for better filesystem compatibility.
-- [RSpec](https://github.com/rspec/rspec): Provides a framework for behavior-driven development testing.
+- [RSpec](https://github.com/rspec): Provides a framework for behavior-driven development testing.
 - [Byebug](https://github.com/deivid-rodriguez/byebug): A debugger for stepping through code and inspecting states.
 - [RuboCop](https://github.com/rubocop/rubocop): Ensures code quality and adherence to Ruby style guidelines.
 
