@@ -62,9 +62,7 @@ class BooksRenamer
   end
 
   def convert_to_utf8(str)
-    return nil if str.nil?
-
-    str.force_encoding('ISO-8859-1').encode('UTF-8')
+    str&.force_encoding('ISO-8859-1')&.encode('UTF-8')
   end
 
   def format_name(title, author, extension)
