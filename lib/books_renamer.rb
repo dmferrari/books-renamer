@@ -48,11 +48,11 @@ class BooksRenamer
 
   def perform_rename(file_path, old_name, new_name)
     new_file_path = File.join(@directory, new_name)
-    if @update && File.exist?(file_path)
+    if new_file_path != file_path && @update && File.exist?(file_path)
       FileUtils.mv(file_path, new_file_path)
       log("RENAME: #{old_name} -> #{new_name}")
     else
-      log("DRYRUN: would rename #{old_name} -> #{new_name}")
+      log("DRYRUN: would rename #{old_name} -> #{new_name}") unless new_file_path == file_path
     end
   end
 
