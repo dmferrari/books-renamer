@@ -29,7 +29,7 @@ RSpec.describe BooksRenamer do # rubocop:disable Metrics/BlockLength
   end
 
   describe '#rename_books' do # rubocop:disable Metrics/BlockLength
-    context 'when there are PDF files in the directory' do
+    context 'when there are PDF files in the directory' do # rubocop:disable Metrics/BlockLength
       before do
         allow(Dir).to receive(:glob).with("#{directory}/*.pdf").and_return([file_path])
       end
@@ -44,13 +44,26 @@ RSpec.describe BooksRenamer do # rubocop:disable Metrics/BlockLength
         end
       end
 
-      context 'with the update flag set' do
+      context 'with the update flag set' do # rubocop:disable Metrics/BlockLength
         let(:update_flag) { true }
 
         context 'when the file has metadata' do
           it 'renames the file' do
             expect(FileUtils).to receive(:mv).with(file_path, "#{directory}/#{book_title} - #{book_author}.pdf")
             books_renamer.rename_books
+          end
+
+          context 'when the book metadata contains diacritical marks' do
+            let(:book_title)   { 'Aventuras en el Corazón de la Selva Amazónica' }
+            let(:book_author)  { 'José Ramírez Muñoz' }
+            let(:safe_book_title)  { 'Aventuras en el Corazon de la Selva Amazonica' }
+            let(:safe_book_author) { 'Jose Ramirez Munoz' }
+
+            it 'converts titles and authors to ASCII-safe versions for file naming' do
+              expect(FileUtils).to receive(:mv)
+                .with(file_path, "#{directory}/#{safe_book_title} - #{safe_book_author}.pdf")
+              books_renamer.rename_books
+            end
           end
         end
 
