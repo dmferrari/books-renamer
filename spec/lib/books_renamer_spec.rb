@@ -14,7 +14,6 @@ RSpec.describe BooksRenamer do # rubocop:disable Metrics/BlockLength
   let(:file_path) { "#{directory}/#{file_name}" }
 
   before do
-    allow_any_instance_of(described_class).to receive(:log)
     allow(File).to receive(:basename).with(file_path).and_return(file_name)
     allow(File).to receive(:extname).with(file_path).and_return('.pdf')
     allow(File).to receive(:exist?).with(file_path).and_return(true)

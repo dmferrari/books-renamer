@@ -13,6 +13,10 @@ GEM
       concurrent-ruby (~> 1.0)
     json (2.7.2)
     language_server-protocol (3.17.0.3)
+    lite_logger (0.1.1)
+      rake (~> 13.0)
+      rspec (~> 3.0)
+      rubocop (~> 1.21)
     parallel (1.24.0)
     parser (3.3.1.0)
       ast (~> 2.4.1)
@@ -25,6 +29,7 @@ GEM
       ttfunk
     racc (1.7.3)
     rainbow (3.1.1)
+    rake (13.2.1)
     regexp_parser (2.9.0)
     rexml (3.2.6)
     rspec (3.13.0)
@@ -66,6 +71,7 @@ PLATFORMS
 DEPENDENCIES
   byebug (~> 11.1)
   i18n (~> 1.14)
+  lite_logger
   pdf-reader (~> 2.12)
   rspec (~> 3.13)
   rubocop (~> 1.63)

@@ -2,6 +2,7 @@
 
 require 'fileutils'
 require 'i18n'
+require 'lite_logger'
 require 'pdf-reader'
 require 'time'
 
@@ -13,6 +14,7 @@ class BooksRenamer
   def initialize(directory, update: false)
     @directory = directory
     @update = update
+    @logger = LiteLogger::Logger.new
   end
 
   def rename_books
@@ -25,35 +27,31 @@ class BooksRenamer
 
   private
 
-  def log(message)
-    puts "[#{Time.now.strftime('%Y-%m-%d %H:%M:%S')}] #{message}"
-  end
-
   def process_file(file_path)
     file_path_basename = File.basename(file_path)
 
     title, author = fetch_metadata(file_path)
     if title.nil? || author.nil? || title.empty? || author.empty?
-      log("SKIP: #{file_path_basename} - metadata missing")
+      @logger.info("SKIP: #{file_path_basename} - metadata missing")
       return
     end
 
     file_extension = File.extname(file_path)
     new_file_name = format_name(title, author, file_extension)
     if new_file_name.nil? || new_file_name == file_path_basename
-      log("NOOP: #{file_path_basename} - no rename needed")
+      @logger.info("NOOP: #{file_path_basename} - no rename needed")
       return
     end
 
     new_file_path = File.join(@directory, new_file_name)
     if @update && File.exist?(file_path)
       FileUtils.mv(file_path, new_file_path)
-      log("RENAME: #{file_path_basename} -> #{new_file_name}")
+      @logger.info("RENAME: #{file_path_basename} -> #{new_file_name}")
     else
-      log("DRYRUN: would rename #{file_path_basename} -> #{new_file_name}")
+      @logger.info("DRYRUN: would rename #{file_path_basename} -> #{new_file_name}")
     end
   rescue StandardError => e
-    log("ERROR: Processing #{file_path_basename} failed - #{e.message}")
+    @logger.error("Processing #{file_path_basename} failed - #{e.message}")
   end
 
   def fetch_metadata(file_path)
