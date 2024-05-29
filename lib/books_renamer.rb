@@ -29,29 +29,29 @@ class BooksRenamer
 
   def process_file(file_path)
     file_path_basename = File.basename(file_path)
-
     title, author = fetch_metadata(file_path)
-    if title.nil? || author.nil? || title.empty? || author.empty?
-      @logger.info("SKIP: #{file_path_basename} - metadata missing")
-      return
-    end
-
-    file_extension = File.extname(file_path)
-    new_file_name = format_name(title, author, file_extension)
-    if new_file_name.nil? || new_file_name == file_path_basename
-      @logger.info("NOOP: #{file_path_basename} - no rename needed")
-      return
-    end
-
-    new_file_path = File.join(@directory, new_file_name)
-    if @update && File.exist?(file_path)
-      FileUtils.mv(file_path, new_file_path)
-      @logger.info("RENAME: #{file_path_basename} -> #{new_file_name}")
-    else
-      @logger.info("DRYRUN: would rename #{file_path_basename} -> #{new_file_name}")
-    end
+    handle_rename(file_path, file_path_basename, title, author)
   rescue StandardError => e
     @logger.error("Processing #{file_path_basename} failed - #{e.message}")
+  end
+
+  def handle_rename(file_path, file_path_basename, title, author)
+    return log("SKIP: #{file_path_basename} - metadata missing") if title.to_s.empty? || author.to_s.empty?
+
+    new_file_name = format_name(title, author, File.extname(file_path))
+    return log("NOOP: #{file_path_basename} - no rename needed") if new_file_name == file_path_basename
+
+    perform_rename(file_path, file_path_basename, new_file_name)
+  end
+
+  def perform_rename(file_path, old_name, new_name)
+    new_file_path = File.join(@directory, new_name)
+    if new_file_path != file_path && @update && File.exist?(file_path)
+      FileUtils.mv(file_path, new_file_path)
+      log("RENAME: #{old_name} -> #{new_name}")
+    else
+      log("DRYRUN: would rename #{old_name} -> #{new_name}") unless new_file_path == file_path
+    end
   end
 
   def fetch_metadata(file_path)
@@ -60,9 +60,7 @@ class BooksRenamer
   end
 
   def convert_to_utf8(str)
-    return nil if str.nil?
-
-    str.force_encoding('ISO-8859-1').encode('UTF-8')
+    str&.force_encoding('ISO-8859-1')&.encode('UTF-8')
   end
 
   def format_name(title, author, extension)
