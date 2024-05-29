@@ -28,7 +28,7 @@ RSpec.describe BooksRenamer do # rubocop:disable Metrics/BlockLength
   end
 
   describe '#rename_books' do # rubocop:disable Metrics/BlockLength
-    context 'when there are PDF files in the directory' do
+    context 'when there are PDF files in the directory' do # rubocop:disable Metrics/BlockLength
       before do
         allow(Dir).to receive(:glob).with("#{directory}/*.pdf").and_return([file_path])
       end
