@@ -36,10 +36,10 @@ class BooksRenamer
   end
 
   def handle_rename(file_path, file_path_basename, title, author)
-    return log("SKIP: #{file_path_basename} - metadata missing") if title.to_s.empty? || author.to_s.empty?
+    return @logger.info("SKIP: #{file_path_basename} - metadata missing") if title.to_s.empty? || author.to_s.empty?
 
     new_file_name = format_name(title, author, File.extname(file_path))
-    return log("NOOP: #{file_path_basename} - no rename needed") if new_file_name == file_path_basename
+    return @logger.info("NOOP: #{file_path_basename} - no rename needed") if new_file_name == file_path_basename
 
     perform_rename(file_path, file_path_basename, new_file_name)
   end
@@ -48,9 +48,9 @@ class BooksRenamer
     new_file_path = File.join(@directory, new_name)
     if new_file_path != file_path && @update && File.exist?(file_path)
       FileUtils.mv(file_path, new_file_path)
-      log("RENAME: #{old_name} -> #{new_name}")
+      @logger.info("RENAME: #{old_name} -> #{new_name}")
     else
-      log("DRYRUN: would rename #{old_name} -> #{new_name}") unless new_file_path == file_path
+      @logger.info("DRYRUN: would rename #{old_name} -> #{new_name}") unless new_file_path == file_path
     end
   end
 
