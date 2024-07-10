@@ -11,10 +11,10 @@ I18n.config.available_locales = :en
 class BooksRenamer
   FILE_PATTERNS = ['*.pdf'].freeze
 
-  def initialize(directory, update: false)
+  def initialize(directory, update: false, logger: LiteLogger::Logger.new)
     @directory = directory
     @update = update
-    @logger = LiteLogger::Logger.new
+    @logger = logger
   end
 
   def rename_books
